@@ -2,7 +2,7 @@
 title: "Home"
 ---
 
-# Jeff's BJJ Log
+# {{ $frontmatter.title }} <!-- markdownlint-disable-line MD025 -->
 
 <script setup>
     import bjjBelt from '../components/bjj-belt.vue'
