@@ -14,5 +14,8 @@
     "eslint-plugin-vue": "^9.9.0",
     "vitepress": "^1.0.0-alpha.36",
     "vue": "^3.2.45"
+  },
+  "dependencies": {
+    "vitepress-plugin-simple-search": "^1.3.3"
   }
 }
