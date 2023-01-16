@@ -10,6 +10,8 @@
     "serve": "vitepress serve docs"
   },
   "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-plugin-vue": "^9.9.0",
     "vitepress": "^1.0.0-alpha.36",
     "vue": "^3.2.45"
   }
