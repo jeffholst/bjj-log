@@ -4,6 +4,8 @@ title: "Home"
 
 # {{ $frontmatter.title }} <!-- markdownlint-disable-line MD025 -->
 
+<p class="text-sky-400">This is blue text</p>
+
 <script setup>
     import bjjBelt from '../components/bjj-belt.vue'
 </script>

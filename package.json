@@ -10,13 +10,22 @@
     "serve": "vitepress serve docs"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.13",
     "eslint": "^8.32.0",
     "eslint-plugin-vue": "^9.9.0",
+    "postcss": "^8.4.21",
     "prettier": "^2.8.3",
+    "tailwindcss": "^3.2.4",
     "vitepress": "^1.0.0-alpha.36",
     "vue": "^3.2.45"
   },
   "dependencies": {
     "vitepress-plugin-simple-search": "^1.3.3"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
   }
 }
