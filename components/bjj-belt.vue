@@ -58,12 +58,12 @@
     </g>
     <polygon
       id="Stripe1"
-      :style="stripeOne"
+      :style="stripeColor[0]"
       points="105.8,155.9 109.1,152.9 81,121.8 73.5,126.1 102.4,157.9 "
     />
     <rect
       id="Stripe2"
-      :style="stripeTwo"
+      :style="stripeColor[1]"
       x="101.7"
       y="108.1"
       transform="matrix(0.7407 -0.6718 0.6718 0.7407 -59.8848 104.8345)"
@@ -72,7 +72,7 @@
     />
     <rect
       id="Stripe3"
-      :style="stripeThree"
+      :style="stripeColor[2]"
       x="117.5"
       y="98.8"
       transform="matrix(0.7407 -0.6718 0.6718 0.7407 -49.5132 113.0472)"
@@ -81,7 +81,7 @@
     />
     <rect
       id="Stripe4"
-      :style="stripeFour"
+      :style="stripeColor[3]"
       x="132.8"
       y="90"
       transform="matrix(0.7407 -0.6718 0.6718 0.7407 -39.7012 121.0361)"
@@ -97,79 +97,70 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
+import { ref, onMounted } from "vue"
 const props = defineProps({
   imageWidth: Number,
-  beltLevel: String,
+  beltLevel: Number,
   stripeCount: Number,
 })
 
-const imageWidth = computed(() => {
-  return props.imageWidth
+const patchColor = ref({})
+const beltOutline = ref({})
+const beltColor = ref({})
+const stripeColor = ref([{}, {}, {}, {}])
+const imageWidth = ref()
+
+onMounted(() => {
+  setPatchColor()
+  setBeltOutline()
+  setBeltColor()
+  setStripeColors()
+  imageWidth.value = props.imageWidth
 })
 
-const patchColor = computed(() => {
+const setPatchColor = () => {
   if (props.beltLevel < 4) {
-    return { fill: "#000000" }
+    patchColor.value = { fill: "#000000" }
   } else {
-    return { fill: "#FF0000" }
+    patchColor.value = { fill: "#FF0000" }
   }
-})
+}
 
-const beltOutline = computed(() => {
-  if (props.beltLevel == 2 || props.beltLevel == 4) {
-    return { stroke: "#C0C0C0", "stroke-width": "4" }
+const setBeltOutline = () => {
+  if (props.beltLevel === 2 || props.beltLevel === 4) {
+    beltOutline.value = { stroke: "#C0C0C0", "stroke-width": "4" }
   } else {
-    return { stroke: "#1A1A1A", "stroke-width": "4" }
+    beltOutline.value = { stroke: "#1A1A1A", "stroke-width": "4" }
   }
-})
+}
 
-const beltColor = computed(() => {
+const setBeltColor = () => {
   switch (props.beltLevel) {
-    case "0": // white
-      return { fill: "#FFFFFF" }
-    case "1": // blue
-      return { fill: "#2727c9" }
-    case "2": // purple
-      return { fill: "#621083" }
-    case "3": // brown
-      return { fill: "#" }
-    case "4": // black
-      return { fill: "#000000" }
+    case 0: // white
+      beltColor.value = { fill: "#FFFFFF" }
+      break
+    case 1: // blue
+      beltColor.value = { fill: "#2727c9" }
+      break
+    case 2: // purple
+      beltColor.value = { fill: "#621083" }
+      break
+    case 3: // brown
+      beltColor.value = { fill: "#7B3F00" }
+      break
+    case 4: // black
+      beltColor.value = { fill: "#000000" }
+      break
     default:
-      return { fill: "#FFFFFF" }
+      beltColor.value = { fill: "#FFFFFF" }
   }
-})
+}
 
-const stripeOne = computed(() => {
-  if (props.stripeCount > 0) {
-    return { fill: "#FFFFFF" }
-  } else {
-    return { fill: "#000000" }
+const setStripeColors = () => {
+  for (let i = 0; i < 4; i++) {
+    props.stripeCount > i
+      ? (stripeColor.value[i] = { fill: "#FFFFFF" })
+      : (stripeColor.value[i] = patchColor.value)
   }
-})
-
-const stripeTwo = computed(() => {
-  if (props.stripeCount > 1) {
-    return { fill: "#FFFFFF" }
-  } else {
-    return { fill: "#000000" }
-  }
-})
-
-const stripeThree = computed(() => {
-  if (props.stripeCount > 2) {
-    return { fill: "#FFFFFF" }
-  } else {
-    return { fill: "#000000" }
-  }
-})
-
-const stripeFour = computed(() => {
-  if (props.stripeCount > 3) {
-    return { fill: "#FFFFFF" }
-  } else {
-    return { fill: "#000000" }
-  }
-})
+}
 </script>
